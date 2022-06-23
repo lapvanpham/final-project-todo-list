@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routers } from './routers';
 import { AuthProvider, ProtectedRoute } from './app/authentication';
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/scss/main.scss"
 
 function App() {
   return (

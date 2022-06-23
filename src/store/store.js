@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../pages/counter/counterSlice';
+import tasksReducer from '../pages/home/slice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    tasks: tasksReducer,
+    // displayedTasks: displayedTaskedReducer,
   },
 });

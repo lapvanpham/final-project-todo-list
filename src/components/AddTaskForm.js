@@ -3,44 +3,31 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { addTask } from '../pages/home/slice'
 import { useDispatch } from 'react-redux'
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
-import { db } from '../firebase/firebase'
 
 
 function AddTaskForm() {
   const dispatch = useDispatch()
   const currentDate = new Date();
-  const [tempDueDate, setTempDueDate] = useState('')
 
-  const [task, setTask] = React.useState({
-    title: '',
-    addedDate: currentDate.toJSON(),
-    dueDate: '',
-  })
 
-  const handleChange = function (e) {
-    setTask({
-      ...task,
-      [e.target.name]: e.target.value,
-    })
-  }
+  const [title, setTitle] = useState('')
+  const [dueDate, setDueDate] = useState(new Date())
 
   const handleDueDateChange = function (date) {
-    setTempDueDate(date)
-    setTask({
-      ...task,
-      dueDate: date.toJSON(),
+    setDueDate({
+      dueDate: date,
     })
   }
 
   const handleSubmit = async function () {
-    if (task.title.length > 0) {
-      dispatch(addTask(task))
+    if (title.length > 0) {
+      dispatch(addTask({
+        title,
+        addedDate: currentDate.toJSON(),
+        dueDate: dueDate.toJSON()
+      }))
     }
-
-    await addDoc(collection(db, "tasks"), {
-      ...task,
-    });
+    setTitle('')
   }
 
 
@@ -50,10 +37,11 @@ function AddTaskForm() {
         <div className="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
           <div className="col">
             <input
-              onChange={handleChange}
+              onChange={(e) => setTitle(e.target.value)}
               id='title'
               name="title"
               type="text"
+              value={title}
               className="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
               placeholder="Add new ..."
             />
@@ -62,11 +50,10 @@ function AddTaskForm() {
             <label style={{ marginRight: "5px" }} htmlFor="start">Due date</label>
             <DatePicker
               id='dueDate'
-              name='dueDate'
               dateFormat="dd/MM/yyyy"
-              selected={tempDueDate}
+              selected={dueDate}
               minDate={currentDate}
-              onChange={handleDueDateChange}
+              onChange={(date: Date) => setDueDate(date)}
             />
           </div>
           <div className="col-auto px-0 mx-0 mr-2">

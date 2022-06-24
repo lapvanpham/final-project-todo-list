@@ -1,8 +1,21 @@
 import React from 'react'
 import { AiOutlineHome } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
+import { FiLogOut } from 'react-icons/fi'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function Header() {
+  const { dispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const handleLogout = function () {
+    dispatch({
+      type: 'LOGOUT',
+    })
+    navigate('/login')
+  }
+
   return (
     <div className='Header'>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,8 +36,11 @@ function Header() {
                 <button type="button" className="btn btn-secondary"><BsSearch /></button>
               </div>
             </form>
-            <div className="navbar-nav">
-              <a href="#" className="nav-item nav-link">Login</a>
+            <div className="navbar-nav" onClick={handleLogout} >
+              <span style={{ color: 'red' }} className="nav-item nav-link">
+                <FiLogOut style={{ marginRight: '5px' }} />
+                Log out
+              </span>
             </div>
           </div>
         </div>

@@ -12,8 +12,6 @@ function Home() {
       <HeaderContent />
       <AddTaskForm />
       <ViewOptions />
-
-
       <div className="p-2 mx-4 border-black-25 border-bottom"></div>
       <TaskList />
     </div>

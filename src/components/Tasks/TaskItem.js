@@ -7,14 +7,14 @@ import { MdOutlineDeleteSweep } from 'react-icons/md'
 
 import { useDispatch } from 'react-redux'
 import { toggleCompleted, deleteTask, editTask } from "../../pages/home/slice"
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from '../../firebase/firebase'
 
 function TaskItem({ task }) {
   const dispatch = useDispatch();
   const { id, title, addedDate, dueDate, completed } = task;
   const formattedAddedDate = formatDate(addedDate);
+  console.log('duedate ->', dueDate)
   const formattedDueDate = formatDate(dueDate);
+  console.log(formattedDueDate)
 
   const [updatedTitle, setUpdatedTitle] = useState(title)
 
@@ -27,11 +27,6 @@ function TaskItem({ task }) {
 
   const handleDelete = async function () {
     dispatch(deleteTask({ id }))
-    try {
-      await deleteDoc(doc(db, "tasks", id));
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   const handleChange = function (e) {

@@ -23,7 +23,6 @@ function LoginForm() {
           type: 'LOGIN',
           payload: user
         })
-        console.log(user)
         navigate('/')
       })
       .catch((error) => {
@@ -52,14 +51,14 @@ function LoginForm() {
               <div className="form-outline mb-4">
                 <input
                   onChange={(e) => { setEmail(e.target.value) }}
-                  type="email" id="form3Example3" className="form-control form-control-lg" placeholder="Enter a valid email address" />
+                  type="email" id="form3Example3" className="form-control form-control-lg" placeholder="admin@admin.com" />
                 <label className="form-label" htmlFor="form3Example3">Email address</label>
               </div>
               {/* Password input */}
               <div className="form-outline mb-3">
                 <input
                   onChange={(e) => { setPassword(e.target.value); }}
-                  type="password" id="form3Example4" className="form-control form-control-lg" placeholder="Enter password" />
+                  type="password" id="form3Example4" className="form-control form-control-lg" placeholder="antoan" />
                 <label className="form-label" htmlFor="form3Example4">Password</label>
               </div>
 

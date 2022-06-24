@@ -9,11 +9,12 @@ import { db } from '../firebase/firebase'
 
 function AddTaskForm() {
   const dispatch = useDispatch()
-  const currentDate = new Date().toJSON();
+  const currentDate = new Date();
+  const [tempDueDate, setTempDueDate] = useState('')
 
   const [task, setTask] = React.useState({
     title: '',
-    addedDate: currentDate,
+    addedDate: currentDate.toJSON(),
     dueDate: '',
   })
 
@@ -24,10 +25,11 @@ function AddTaskForm() {
     })
   }
 
-  const handleDateChange = function (date) {
+  const handleDueDateChange = function (date) {
+    setTempDueDate(date)
     setTask({
       ...task,
-      dueDate: date,
+      dueDate: date.toJSON(),
     })
   }
 
@@ -62,9 +64,9 @@ function AddTaskForm() {
               id='dueDate'
               name='dueDate'
               dateFormat="dd/MM/yyyy"
-              selected={task.dueDate}
+              selected={tempDueDate}
               minDate={currentDate}
-              onChange={handleDateChange}
+              onChange={handleDueDateChange}
             />
           </div>
           <div className="col-auto px-0 mx-0 mr-2">

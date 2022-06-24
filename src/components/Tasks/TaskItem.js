@@ -7,6 +7,8 @@ import { MdOutlineDeleteSweep } from 'react-icons/md'
 
 import { useDispatch } from 'react-redux'
 import { toggleCompleted, deleteTask, editTask } from "../../pages/home/slice"
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from '../../firebase/firebase'
 
 function TaskItem({ task }) {
   const dispatch = useDispatch();
@@ -23,8 +25,13 @@ function TaskItem({ task }) {
     }))
   }
 
-  const handleDelete = function () {
+  const handleDelete = async function () {
     dispatch(deleteTask({ id }))
+    try {
+      await deleteDoc(doc(db, "tasks", id));
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleChange = function (e) {

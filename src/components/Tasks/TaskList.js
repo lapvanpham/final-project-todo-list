@@ -36,7 +36,6 @@ function TaskList() {
           }
           )
         }
-
       </div>
     </div>
   )

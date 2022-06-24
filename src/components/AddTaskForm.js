@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { addTask } from '../pages/home/slice'
 import { useDispatch } from 'react-redux'
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase'
 
 
 function AddTaskForm() {
   const dispatch = useDispatch()
-  const currentDate = new Date();
+  const currentDate = new Date().toJSON();
 
   const [task, setTask] = React.useState({
     title: '',
@@ -29,11 +31,14 @@ function AddTaskForm() {
     })
   }
 
-  const handleSubmit = function () {
-    // dispatch(addTask(task))
+  const handleSubmit = async function () {
     if (task.title.length > 0) {
       dispatch(addTask(task))
     }
+
+    await addDoc(collection(db, "tasks"), {
+      ...task,
+    });
   }
 
 
@@ -44,15 +49,18 @@ function AddTaskForm() {
           <div className="col">
             <input
               onChange={handleChange}
+              id='title'
               name="title"
-              className="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
               type="text"
+              className="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
               placeholder="Add new ..."
             />
           </div>
           <div className="col-auto m-0 px-2 d-flex align-items-center">
             <label style={{ marginRight: "5px" }} htmlFor="start">Due date</label>
             <DatePicker
+              id='dueDate'
+              name='dueDate'
               dateFormat="dd/MM/yyyy"
               selected={task.dueDate}
               minDate={currentDate}

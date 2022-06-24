@@ -3,6 +3,8 @@ import { ImSortAmountDesc, ImSortAmountAsc } from 'react-icons/im'
 
 
 function ViewOptions() {
+  const [ascending, setAscending] = React.useState(true)
+
   return (
     <div className="row m-1 p-3 px-5 justify-content-end">
       <div className="col-auto d-flex align-items-center">

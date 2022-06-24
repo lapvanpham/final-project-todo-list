@@ -30,7 +30,6 @@ export const tasksSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       const newTask = {
-        id: JSON.stringify(Date.now()),
         title: action.payload.title,
         addedDate: action.payload.addedDate,
         dueDate: action.payload.dueDate,

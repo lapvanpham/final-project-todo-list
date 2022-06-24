@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { TbSquare, TbCheckbox } from 'react-icons/tb'
 import formatDate from '../../assets/common-functions/formatDate';
 import { HiInformationCircle } from 'react-icons/hi'
-import { RiDeleteBin5Line } from 'react-icons/ri'
 import { FaHourglassHalf } from 'react-icons/fa'
+import { MdOutlineDeleteSweep } from 'react-icons/md'
 
 import { useDispatch } from 'react-redux'
 import { toggleCompleted, deleteTask, editTask } from "../../pages/home/slice"
@@ -57,8 +57,8 @@ function TaskItem({ task }) {
         <div className="col-auto m-1 p-0 d-flex align-items-center">
           {
             completed ?
-              <TbCheckbox onClick={handleCompletedClick} color='blue' /> :
-              <TbSquare onClick={handleCompletedClick} color='blue' />
+              <TbCheckbox style={{ fontSize: '30px' }} onClick={handleCompletedClick} color='blue' /> :
+              <TbSquare style={{ fontSize: '30px' }} onClick={handleCompletedClick} color='blue' />
           }
         </div>
         <div className="col px-1 m-1 d-flex align-items-center">
@@ -66,10 +66,8 @@ function TaskItem({ task }) {
             onChange={handleChange} onBlur={handleBlur}
             type="text" className="form-control form-control-lg border-0 edit-todo-input bg-transparent rounded px-3" defaultValue={updatedTitle} title={updatedTitle} />
         </div>
-
         <div className="col-auto m-1 p-0 px-3">
           <div className="row">
-
             {
               dueDate === '' ? <div></div> :
                 <div className="col-auto d-flex align-items-center rounded bg-white border border-warning">
@@ -79,22 +77,25 @@ function TaskItem({ task }) {
             }
           </div>
         </div>
-        <div className="col-auto m-1 p-0 todo-actions">
-          <div className="row d-flex align-items-center justify-content-end">
-
-            <h5 className="m-0 p-0 px-2">
-              <RiDeleteBin5Line onClick={handleDelete} />
-            </h5>
-          </div>
+        <div className="col-auto m-1 p-0 px-3" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
           <div className="row todo-created-info">
-            <div className="col-auto d-flex align-items-center pr-2">
+            <div className="col-auto d-flex align-items-center pr-2" >
               <HiInformationCircle className="text-info" />
               <label className="date-label my-2 text-black-50">{formattedAddedDate}</label>
             </div>
           </div>
         </div>
-      </div>
 
+        <div className="col-auto m-1 p-0 px-3">
+          <div className="row d-flex align-items-center justify-content-end">
+            <button
+              onClick={handleDelete}
+              className='btn btn-danger'>
+              <MdOutlineDeleteSweep className='m-1' fontSize={'1.4rem'} />
+              Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

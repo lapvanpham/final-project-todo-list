@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase/firebase';
+import { AuthContext } from '../context/AuthContext'
 
 function LoginForm() {
   const [error, setError] = React.useState(false)
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+
+  const navigate = useNavigate()
+  const { dispatch } = useContext(AuthContext)
+
 
   const handleSubmit = function (e) {
     e.preventDefault()
@@ -14,6 +19,10 @@ function LoginForm() {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        dispatch({
+          type: 'LOGIN',
+          payload: user
+        })
         console.log(user)
         navigate('/')
       })
@@ -26,7 +35,6 @@ function LoginForm() {
         setError(true)
       });
   }
-  const navigate = useNavigate()
 
 
   return (

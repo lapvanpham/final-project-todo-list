@@ -10,7 +10,7 @@ function LoginForm() {
   const [password, setPassword] = React.useState('')
 
   const navigate = useNavigate()
-  const { dispatch } = useContext(AuthContext)
+  const { authDispatch } = useContext(AuthContext)
 
 
   const handleSubmit = function (e) {
@@ -19,7 +19,7 @@ function LoginForm() {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        dispatch({
+        authDispatch({
           type: 'LOGIN',
           payload: user
         })

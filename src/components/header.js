@@ -1,20 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineHome } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
 import { FiLogOut } from 'react-icons/fi'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { searchTask } from './HeaderSlice'
+import { useSelector } from 'react-redux'
 
 function Header() {
-  const { dispatch } = useContext(AuthContext)
+  const dispatch = useDispatch()
+
+  const { authDispatch } = useContext(AuthContext)
   const navigate = useNavigate()
   const handleLogout = function () {
-    dispatch({
+    authDispatch({
       type: 'LOGOUT',
     })
     navigate('/login')
   }
+
+
 
   return (
     <div className='Header'>
@@ -32,7 +39,8 @@ function Header() {
             </div>
             <form className="d-flex">
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Search" />
+                <input
+                  type="text" className="form-control" placeholder="Search" />
                 <button type="button" className="btn btn-secondary"><BsSearch /></button>
               </div>
             </form>

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
 
-const initialState = [
+const initialState = JSON.parse(localStorage.getItem('tasks')) || [
   {
     id: 1,
     title: 'Buy milk',
@@ -24,6 +24,7 @@ const initialState = [
     completed: false,
   }
 ]
+
 
 export const tasksSlice = createSlice({
   name: 'tasks',
@@ -51,6 +52,9 @@ export const tasksSlice = createSlice({
     editTask: (state, action) => {
       const index = state.findIndex((task) => (task.id === action.payload.id));
       state[index].title = action.payload.title;
+    },
+    searchTask: (state, action) => {
+
     }
   }
 })

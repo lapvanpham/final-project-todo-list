@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 
 function TaskList() {
   const tasks = useSelector(state => state.tasks)
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
   return (
     <div className="row mx-1 px-5 pb-3 w-80">
       <div className=" mx-auto">

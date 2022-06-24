@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AddTaskForm from '../../components/AddTaskForm'
 import HeaderContent from '../../components/HeaderContent'
 import TaskList from '../../components/Tasks/TaskList'
 import ViewOptions from '../../components/ViewOptions'
 import Header from '../../components/Header'
+
 
 function Home() {
   return (
